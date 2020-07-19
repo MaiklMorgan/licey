@@ -1,0 +1,52 @@
+/* ============================ *
+ * --------Import Files-------- *
+ * ============================ */
+@import url("https://fonts.googleapis.com/css?family=Open+Sans:300,400&subset=cyrillic");
+
+@import "bootstrap-theme/bootstrap-variables";
+@import "variables";
+@import "bootstrap-sass/bootstrap";
+@import "functions/functions";
+@import "mixins";
+@import "bootstrap-theme/theme";
+@import "helpers/helpers";
+@import "lists";
+@import '~owl.carousel/dist/assets/owl.carousel.min.css';
+@import "owl-carousel-theme";
+
+.logo{
+	font-size: 7.778em; 
+	line-height: .9;
+	text-transform: uppercase;
+	font-weight: 700;
+	letter-spacing: -4px;
+}
+
+.slogan{
+	@extend .fz-xxlarger;
+	font-weight: 700;
+	line-height: 1.222em;
+} 
+
+form{
+	.form__message{display: none;}
+
+	&.form-sent{
+		.form__content{display: none;}
+
+		.form__message{
+			@include vertical-centered-content;
+		}
+	}
+}
+
+.fa-10x{
+	font-size: 10em;
+}
+
+/* ============================ *
+ * --------Import Files-------- *
+ * ============================ */
+@import "boxies";
+@import "sections";
+@import "responsive";

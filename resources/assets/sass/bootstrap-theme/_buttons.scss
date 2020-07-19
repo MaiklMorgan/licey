@@ -1,0 +1,44 @@
+.btn{
+	font-family: map-get($font-families, 'alt');
+	font-weight: 400;
+	@include box-shadow(none);
+	@include transition(all .4s ease 0s);
+	@include button-size(12px, 20px, 16px, 20px, $border-radius-small);
+
+	&:hover,
+	&:focus,
+	&:active,
+	&.active,
+    .open > &.dropdown-toggle {
+    	@include box-shadow(none);
+    }
+}
+
+.btn-sm{
+	@include button-size(6px, 13px, 14px, 18px, $border-radius-small);
+}
+
+.btn-md{
+	font-weight: 300;
+	@include button-size(11px, 5px, 16px, 20px, $border-radius-small);
+}
+
+.btn-lg{
+	@include button-size(16px, 18px, 18px, 22px, $border-radius-small);
+
+	@media (max-width: 560px){
+		font-size: 15px;
+	}
+}
+
+.btn-warning{
+	@include button-variant-full(#000, $brand-warning, $brand-warning, #000, #ff9920, #ff9920, #000, #cc7c1b, #cc7c1b);
+}
+
+.btn-transparent{
+	@include button-variant-full(#3d3f40, transparent, #9fa3a7, #fff, #9fa3a7, #9fa3a7, #fff, #6d7073, #6d7073);
+}
+
+.btn-transparent-white{
+	@include button-variant(#fff, #fff, #000);
+}

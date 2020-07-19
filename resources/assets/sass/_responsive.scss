@@ -1,0 +1,59 @@
+// >= 561
+@media (min-width: 561px){
+	.visible-xxs{display: none;}
+}
+
+// >= 561
+@media (min-width: 991px){
+	
+}
+
+// >= 768
+@media (min-width: $screen-sm-min){
+}
+
+// >= 992
+@media (min-width: $screen-md-min){
+}
+
+// >= 1200
+@media (min-width: $screen-lg-min){
+}
+
+/* ============================== */
+
+// <= 1199
+@media (max-width: $screen-md-max){
+	
+}
+
+// <= 991
+@media (max-width: $screen-sm-max){
+	
+}
+
+// <= 767
+@media (max-width: $screen-xs-max){
+	body{
+		font-size: 14px;
+	}
+
+	.logo{
+		font-size: 7em;
+	}
+}
+
+// <= 560
+@media (max-width: 560px){
+	.visible-xxs{display: block !important;}
+	.hidden-xxs{display: none !important;}
+
+	.logo{
+		font-size: 4em;
+	}
+}
+
+
+
+
+

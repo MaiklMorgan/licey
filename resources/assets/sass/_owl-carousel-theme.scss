@@ -1,0 +1,320 @@
+@include keyframes(single-slide){
+	0%   { @include translate(100%, 0); }
+  	100% { @include translate(0, 0); }
+};
+
+.owl-carousel{
+	.owl-stage-outer{
+		position: relative;
+		z-index: 0;
+	}
+
+	.owl-dots{
+		position: relative;
+		z-index: 1;
+	}
+
+	&.owl-full-height{
+		height: 100%;
+
+		.owl-stage-outer,
+		.owl-stage,
+		.owl-item{
+			height: 100% !important;
+		}
+
+		.owl-item{
+			> *{
+				height: 100% !important;
+				width: auto;
+			}
+		}
+	}
+
+	&.owl-single-width{
+		.owl-stage{
+			width: 100%;
+			transform: none !important;
+			position: relative;
+
+			.owl-item{
+				position: absolute;
+				top: 0;
+				left: 0;
+				@include square(100%);
+
+				&.active{
+					z-index: 20;
+					@include animation(single-slide .4s ease 0s 1);
+				}
+
+				&.zzz{
+					z-index: 19;
+				}
+			}
+		}
+	}
+
+	&.owl-transparent{
+		.owl-stage-outer{
+			overflow: visible;
+		}
+
+		.owl-stage{
+			@include row-centered-content;
+		}
+
+		.owl-item{
+			flex-shrink: 0;
+			@include filter(grayscale(1));
+			@include opacity(.2);
+			@include transition(transition-string());
+
+			&.center{
+				@include filter(grayscale(0));
+				@include opacity(1);
+				@include scale(1.2);
+			}
+		}
+	}
+
+	&[class*="owl-fake-row-"]{
+		.owl-stage-outer{
+			overflow: visible;
+		}
+	}
+
+	.owl-dots{
+		$size: 		10px;
+		$gutter: 	10px;
+
+		text-align: center;
+		line-height: $size;
+		margin-top: map-get($offsets, medium);
+		@include make-row($gutter);
+
+		.owl-dot{
+			display: inline-block;
+			padding-left: floor(($gutter / 2)) !important;
+	    	padding-right: ceil(($gutter / 2)) !important;
+
+	    	> span{
+	    		display: block;
+	    		background: #b3b3b3;
+	    		border-radius: 50%;
+	    		@include square($size);
+	    		@include transition(transition-string($property: 'box-shadow'));
+	    	}
+
+	    	&:hover,
+	    	&:focus{
+	    		> span{
+	    			@include box-shadow(0 0 0 $size / 3 map-get($backgrounds, theme) inset);
+	    		}
+	    	}
+
+	    	&.active{
+	    		> span{
+	    			@include box-shadow(0 0 0 $size map-get($backgrounds, theme) inset);
+	    		}
+	    	}
+		}
+
+		.gallery-box &{
+		    position: absolute;
+		    top: auto;
+		    bottom: 5px;
+		}
+
+	    .gallery-box--left &{
+	    	left: 7px;
+	    }
+
+	    .gallery-box--right &{
+	    	right: 7px;
+	    }
+	}
+
+	&.owl-dots-left{
+		.owl-dots{
+			text-align: left;
+		}
+	}
+
+	&.owl-shadow-fix{
+		&.owl-nav-outer{
+			.owl-nav{
+				.owl-prev{
+					margin-left: 30px; 
+				}
+			}
+		}
+
+		.owl-dots{
+			margin-left: #{'calc(8.33333333% + 25px)'};
+		}
+	}
+}
+
+.owl-nav{
+	position: absolute;
+	top: 50%;
+	right: 0;
+	left: 0;
+	// margin-top: -30px;
+
+	.owl-prev,
+	.owl-next{
+		position: absolute;
+		top: 0;
+		@include square(60px);
+		@include translate(0, -50%);
+
+		&:before{
+			content: "";
+			display: block;
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			border: 3px solid;
+			border-color: #000 #000 transparent transparent;
+			@include square(catet(60px));
+			@include transition(transition-string($property: 'border-color'));
+		}
+
+		&:not(.disabled){
+			&:hover,
+			&:focus{
+				&:before{
+					border-color: map-get($backgrounds, theme) map-get($backgrounds, theme) transparent transparent;
+				}
+			}
+		}
+
+		&.disabled{
+			display: none;
+		}
+	}
+
+	.owl-prev{
+		left: 0;
+
+		&:before{
+			@include transform(translate(-50%, -50%) rotate(-135deg));
+		}
+	}
+
+	.owl-next{
+		right: 0;
+
+		&:before{
+			@include transform(translate(-50%, -50%) rotate(45deg));
+		}
+	}
+
+	.owl-nav-outer &{
+		.owl-prev{
+			@include translate(-100%, 0);
+		}
+
+		.owl-next{
+			@include translate(100%, 0);
+		}
+	}
+
+	.owl-nav-inset &{
+		right: map-get($offsets, default);
+		left: map-get($offsets, default);
+	}
+
+	.owl-nav-small &{
+		.owl-prev,
+		.owl-next{
+			@include square(30px);
+
+			&:before{
+				border-width: 2px;
+				@include square(catet(30px));
+			}
+		}
+	}
+
+	.owl-nav-circle &{
+		.owl-prev,
+		.owl-next{
+			background: transparent 50% 50% no-repeat !important;
+			@include background-size(contain);
+			@include square(40px);
+
+			&:before{
+				display: none;
+			}
+		}
+
+		.owl-prev{
+			background-image: url("../images/icons/icon-owl-prev.svg") !important;
+		}
+
+		.owl-next{
+			background-image: url("../images/icons/icon-owl-prev.svg") !important;
+			@include transform(translate(0, -50%) scale(-1));
+		}
+	}
+
+	.owl-nav-dots-fix &{
+		margin-top: -30px;
+	}
+}
+
+.fancy-dots{
+	$gutter: 	10px;
+	$size: 		15px;
+	
+	clear: both;
+	@include make-row($gutter);
+
+	.owl-dot,
+	button.owl-dot{
+		float: left;
+		position: relative;
+		height: $size;
+		padding-left:  floor(($gutter / 2)) !important;
+    	padding-right: ceil(($gutter / 2)) !important;
+
+		&:after{
+			content: "";
+			display: block;
+			position: relative;
+			width: 0;
+			margin-top: ceil($size / -2);
+			margin-left: $gutter + $size;
+			border-top: 1px solid;
+			@include transition(all .25s linear 0s);
+		}
+
+		> span{
+			display: block;
+			border: 1px solid;
+			border-radius: 50%;
+			@include transition(all .2s ease 0s);
+			@include square($size);
+		}
+
+		&:hover{
+			> span{
+				// border-color: #fff;
+				border-width: ceil($size / 2) ceil($size / 2) floor($size / 2) floor($size / 2);
+			}
+		}
+
+		&.active{
+			&:after{
+				width: 115px;
+			}
+
+			> span{
+				border-width: ceil($size / 2) ceil($size / 2) floor($size / 2) floor($size / 2);
+			}
+		}
+	}
+}

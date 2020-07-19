@@ -1,0 +1,52 @@
+.breadcrumb{
+	@extend .fz-smaller_;
+	padding: 0;
+	margin: 0;
+	background-color: transparent;
+	border-radius: 0;
+
+	> .active{
+		color: #000;
+	}
+
+	> li{
+		+ li{
+			&:before{
+				color: #808080;
+			}		
+		}
+	}
+	
+	&--color-inherit{
+		a{
+			color: inherit;
+			border-bottom: 1px solid;
+
+			&:not(:hover), 
+			&:not(:focus),
+			&:not(:active){
+				border-color: transparent;
+			}
+		}
+
+		> .active{
+			color: inherit;
+		}
+
+		> li{
+			+ li{
+				&:before{
+					color: inherit;
+				}		
+			}
+		}
+	}
+
+	&--background{
+		@extend .breadcrumb--color-inherit;
+		background-color: transparentize(#fff, .3);
+		padding: 4px 10px 2px;
+		border-radius: $border-radius-small;
+		display: inline-block;
+	}
+}

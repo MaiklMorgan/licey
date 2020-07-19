@@ -1,0 +1,65 @@
+.list-inline{
+	margin-bottom: 0;
+	@include list-inline-gutters(10px);
+
+	@each $key, $value in $offsets{
+		&--#{$key}{
+			@include list-inline-gutters($value);
+		}
+	}
+
+	&--va-top{
+		vertical-align: top;
+
+		> li{
+			vertical-align: top;
+		}
+	}
+
+	&--va-middle{
+		vertical-align: middle;
+
+		> li{
+			vertical-align: middle;
+		}
+	}
+
+	&--va-bottom{
+		vertical-align: bottom;
+
+		> li{
+			vertical-align: bottom;
+		}
+	}
+
+	@each $tKey, $list in reverse-list($responsive-trasholds){
+		$max: map-get($list, 'max');
+
+		@if $max{
+			@media (max-width: $max){
+				@each $key, $value in $offsets{
+					@each $key, $value in $offsets{
+						&--#{$tKey}-#{$key}{
+							@include list-inline-gutters($value);
+						}
+					}
+				}
+
+				&--#{$tKey}-block{
+					> li{
+						display: block;
+						float: none;
+
+						&:not(:first-child){
+							margin-top: map-get($offsets, 'default');
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+.list-unstyled{
+	margin-bottom: 0;	
+}

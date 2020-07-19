@@ -1,0 +1,252 @@
+.navbar{
+	min-height: $navbar-height;
+    margin-bottom: 0;
+	border: none;
+
+	.navbar-brand{
+		height: $navbar-height;
+		@include vertical-centered-content;
+
+		img{
+			flex-shrink: 0;
+		}
+
+		@media (max-width: 560px){
+			img{
+				max-width: 100px;
+			}
+		}
+	}
+
+	@media (min-width: $grid-float-breakpoint){
+		border-radius: 0;
+
+		> .container, 
+		> .container-fluid{
+			.navbar-brand{
+				margin-left: 0;
+				padding-left: 0;
+			}
+		}
+	}
+}
+
+.navbar-toggle{
+	margin-right: 0;
+
+	.icon-bar{
+		background: #000;
+	}
+}
+
+.navbar-link{
+	@each $tKey, $list in reverse-list($responsive-trasholds){
+		$min: 				map-get($list, "min");
+		$max: 				map-get($list, "max");
+		$r-string: 			null;
+
+		@if $min and $max{
+			$r-string: "(min-width: #{$min}) and (max-width: #{$max})";
+		}
+		@else if $min and not $max{
+			$r-string: "(min-width: #{$min})";
+		}
+		@else if not $min and $max{
+			$r-string: "(max-width: #{$max})";	
+		}
+
+		@if $r-string{
+			@media #{$r-string}{
+				&.visible-#{$tKey}{
+					height: $navbar-height;
+	
+					display: -webkit-box !important;
+				    display:    -moz-box !important;
+				    display:     -ms-flexbox !important;
+				    display: -webkit-flex !important;
+				    display:         flex !important;
+
+				    -webkit-flex-direction: column;
+				       -moz-flex-direction: column;
+				        -ms-flex-direction: column;
+				         -o-flex-direction: column;
+				            flex-direction: column;
+
+				    justify-content: center;
+				}
+			}
+		}
+
+	}
+}
+
+.navbar-nav{
+	> li{
+		> a{
+			line-height: 1;
+			font-weight: 400;
+			color: map-get($colors, black);
+			font-size: .889em;
+
+			> span{
+				border-bottom: 1px solid transparent;
+				@include transition(border-color .4s ease 0s, background-color .4s ease 0s);
+			}
+
+			&:hover,
+			&:focus{
+				background-color: transparent;
+				color: map-get($colors, linkColor);
+			}
+
+			&.link-themed{
+				color: $link-color;
+				
+				> span{
+					@extend .fz-small;
+					border-bottom: none;
+					padding: 5px 5px 1px;
+					display: inline-block;
+				}
+
+				&:hover,
+				&:focus{
+					color: #fff;
+
+					> span{
+						background: map-get($backgrounds, theme);
+					}
+				}
+			}
+		}
+
+		&.active{
+			> a{
+				background-color: transparent;
+				color: map-get($colors, black);
+
+				> span{
+					border-color: map-get($colors, black);
+				}
+
+				&.link-themed{
+					color: #fff;
+
+					> span{
+						background: map-get($backgrounds, theme);
+					}
+				}
+			}
+		}
+	}
+
+	@media (min-width: $screen-lg-min){
+		> li{
+			> a{
+				@include paddings($navbar-link-gutter);
+
+				&.link-themed{
+					@include paddings(5px);
+				}
+			}
+		}
+	}
+
+	@media (min-width: $grid-float-breakpoint) and (max-width: $screen-md-max){
+		> li{
+			> a{
+				@include paddings(20px);
+			}
+		}
+	}
+
+	@media (min-width: $grid-float-breakpoint){
+		> li{
+			> a{
+				height: $navbar-height;
+				@include vertical-centered-content;
+			}
+		}
+
+		&--condeced{
+			> li{
+				> a{
+					@include paddings($navbar-link-gutter-xsmall);
+				}
+			}
+		}
+	}
+
+	@media (max-width: $grid-float-breakpoint-max){
+		&:not(&--condeced){
+			> li{
+				> a{
+					padding-top: map-get($offsets, medium);
+					padding-bottom: map-get($offsets, medium);
+					background: map-get($backgrounds, ppwhite);
+
+					&:hover,
+					&:focus{
+						background: transparentize(map-get($backgrounds, theme), .7);
+					}
+				}
+
+				&:not(:last-child){
+					margin-bottom: 5px;
+				}
+
+				&.active{
+					> a{
+						background: map-get($backgrounds, theme);
+					}
+				}
+			}
+		}
+
+		&--condeced{
+			> li{
+				display: inline-block;
+			}
+		}
+	}
+}
+
+@media (max-width: $grid-float-breakpoint-max){
+	#topMenu{
+		padding: map-get($offsets, 'default');
+		background: #fff;
+		display: block;
+		position: fixed;
+		top: 0;
+		left: -270px;
+		width: 270px;
+		height: 100% !important;
+		overflow: auto;
+		z-index: 99;
+		max-height: none;
+		margin: 0;
+		@include transition(left .4s ease 0s);
+
+		&:after{
+			content: "";
+			display: block;
+			clear: both;
+		}
+
+		&.in{
+			left: 0;
+			@include box-shadow(1px 1px 5px 0 transparentize(map-get($boxShadows, blue), .9));
+		}
+	}
+}
+
+.navbar-right{
+	@media (min-width: $grid-float-breakpoint){
+		margin-right: 0;
+	}
+}
+
+.navbar-theme{
+	background: map-get($backgrounds, white);
+	border-bottom: 1px solid map-get($boxShadows, xLight);
+}

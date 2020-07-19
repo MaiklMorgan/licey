@@ -1,4 +1,5 @@
 .powered-by {
+  display: none;
   left: 20px;
   right: inherit;
 }
